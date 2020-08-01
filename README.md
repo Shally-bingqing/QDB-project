@@ -1,2 +1,2 @@
-# mphy0021-2019-travel-planner-Shally-bingqing
 # QDB-project
+# 1. Using Scrapy to get the data from NASA
