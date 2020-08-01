@@ -18,10 +18,9 @@ class janaf(scrapy.Spider):
     allow_domains = ['https://janaf.nist.gov/']
     start_urls = ["https://janaf.nist.gov/tables/Al-004.html",]
     target="298.15"
-    def parse(self, response):
-        
-        return elements
-    def parse(self,response):       
+    def parse(self,response):    
+        out=[]
+        idea={}
         target=["298.15"]
         print("-------------------------------------------------------------")
         #获取所有的列
@@ -64,6 +63,7 @@ class janaf(scrapy.Spider):
                     name=tmp[-1]
                     print("**************************")
                     print("name:",name)
+                    idea["name"]=name
                     print("**************************")
                     pass#if
                 else:
@@ -77,6 +77,7 @@ class janaf(scrapy.Spider):
                             #以获取到则将判断条件置为不再继续
                             print("+++++++++++++++++++++")
                             print(values)
+                            idea["value"]=values[0]
                             print("+++++++++++++++++++++")
                             flag=False
                             pass#if
@@ -87,7 +88,9 @@ class janaf(scrapy.Spider):
                 #已经获取到，则不再继续
                 break
             pass#for
-        pass#def
+        #pass#def
+        out.append(idea)
+        return out
         
             
     
