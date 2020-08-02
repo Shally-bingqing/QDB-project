@@ -16,9 +16,41 @@ class janaf(scrapy.Spider):
 
     name = "janaf"
     allow_domains = ['https://janaf.nist.gov/']
-    start_urls = ["https://janaf.nist.gov/tables/Al-004.html",]
+    prefix = "https://janaf.nist.gov/tables/"
+    endfix = ".html"
+    conn = "-"
+    start_urls=[]
+    #构造每个元素的所有连接
+    for every_element  in element:
+        #构造多个序号连接
+        for i in range(999):
+            #没有000号元素
+            if i==0:
+                continue
+                pass#if
+            else:
+                no=string(i)
+                while(len(no)<3):
+                    no="0"+no
+                    pass#while
+                #前缀+元素名称+-+三位字符的序号+后缀
+                #start_urls.append(prefix+every_element+conn+no+endfix)
+                #在此处验证是否存在
+                tmp=prefix+every_element+conn+no+endfix
+                #验证tmp这个连接是否值得爬去
+                #return True/False
+                if flag==Ture:
+                    start_urls.append(tmp)
+                    pass#if
+                else:
+                    break
+                pass#else
+            pass#for
+        pass#for
+    print(len(start_urls),start_urls[0])
+   # start_urls = ["https://janaf.nist.gov/tables/Al-004.html",]
     target="298.15"
-    def parse(self,response):    
+    def parse(self,response):
         out=[]
         idea={}
         target=["298.15"]
@@ -63,7 +95,7 @@ class janaf(scrapy.Spider):
                     name=tmp[-1]
                     print("**************************")
                     print("name:",name)
-                    idea["name"]=name
+                    idea["name"]=name[0]
                     print("**************************")
                     pass#if
                 else:
@@ -92,5 +124,3 @@ class janaf(scrapy.Spider):
         out.append(idea)
         return out
         
-            
-    
