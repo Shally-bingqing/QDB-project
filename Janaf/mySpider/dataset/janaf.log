@@ -1,0 +1,31 @@
+2020-08-09 12:44:43 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2020-08-09 12:44:43 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2020-08-09 12:44:45 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://janaf.nist.gov/tables/Al-002.html> (referer: None)
+2020-08-09 12:44:45 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://janaf.nist.gov/tables/Al-003.html> (referer: None)
+2020-08-09 12:44:45 [scrapy.core.scraper] DEBUG: Scraped from <200 https://janaf.nist.gov/tables/Al-002.html>
+{'Al1(cr)': ['298.15', '24.209', '28.275', '28.275', '0.', '0.', '0.', '0.']}
+2020-08-09 12:44:45 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://janaf.nist.gov/tables/Al-007.html> (referer: None)
+2020-08-09 12:44:45 [scrapy.core.scraper] DEBUG: Scraped from <200 https://janaf.nist.gov/tables/Al-003.html>
+{'Al1(l)': ['298.15', '24.209', '39.549', '39.549', '0.', '10.562', '7.201', '-1.262']}
+2020-08-09 12:44:45 [scrapy.core.scraper] DEBUG: Scraped from <200 https://janaf.nist.gov/tables/Al-007.html>
+{'Al1-(g)': ['298.15', '20.960', '168.135', '168.135', '0.', '280.790', '245.345', '-42.983']}
+2020-08-09 12:44:46 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://janaf.nist.gov/tables/Al-008.html> (referer: None)
+2020-08-09 12:44:46 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://janaf.nist.gov/tables/Al-004.html> (referer: None)
+2020-08-09 12:44:46 [scrapy.core.scraper] DEBUG: Scraped from <200 https://janaf.nist.gov/tables/Al-008.html>
+{'Al1B1O2(g)': ['298.15', '52.833', '269.567', '269.567', '0.', '-541.410', '-550.447', '96.436']}
+2020-08-09 12:44:46 [scrapy.core.scraper] DEBUG: Scraped from <200 https://janaf.nist.gov/tables/Al-004.html>
+{'Al1(cr,l)': ['298.15', '24.209', '28.275', '28.275', '0.', '0.', '0.', '0.']}
+2020-08-09 12:44:47 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://janaf.nist.gov/tables/Al-001.html> (referer: None)
+2020-08-09 12:44:47 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://janaf.nist.gov/tables/Al-005.html> (referer: None)
+2020-08-09 12:44:47 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://janaf.nist.gov/tables/Al-006.html> (referer: None)
+2020-08-09 12:44:47 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://janaf.nist.gov/tables/Al-009.html> (referer: None)    
+2020-08-09 12:44:48 [scrapy.core.scraper] DEBUG: Scraped from <200 https://janaf.nist.gov/tables/Al-001.html>
+{'Al1(ref)': ['298.15', '24.209', '28.275', '28.275', '0.', '0.', '0.', '0.']}
+2020-08-09 12:44:48 [scrapy.core.scraper] DEBUG: Scraped from <200 https://janaf.nist.gov/tables/Al-005.html>
+{'Al1(g)': ['298.15', '21.390', '164.553', '164.553', '0.', '329.699', '289.068', '-50.643']}
+2020-08-09 12:44:48 [scrapy.core.scraper] DEBUG: Scraped from <200 https://janaf.nist.gov/tables/Al-006.html>
+{'Al1+(g)': ['298.15', '20.786', '149.950', '149.950', '0.', '912.713', '870.181', '-152.452']}
+2020-08-09 12:44:48 [scrapy.core.scraper] DEBUG: Scraped from <200 https://janaf.nist.gov/tables/Al-009.html>
+{'Al1Br1(g)': ['298.15', '35.600', '239.616', '239.616', '0.', '15.899', '-24.422', '4.279']}
+2020-08-09 12:44:48 [scrapy.core.engine] INFO: Closing spider (finished)
+2020-08-09 12:44:48 [scrapy.extensions.feedexport] INFO: Stored csv feed (9 items) in: ./dataset/janaf.csv
