@@ -44,11 +44,13 @@ class ApiSpider(scrapy.Spider):
                         cccb.append(one)
                         pass#if one
                     pass#for everys
-                #cccb.append(item)
                 pass#for rows
             pass#for tables
-        path ="./dataset/cccb.csv"
+        #file path , here u can choose which type(.csv or .xls) 2 save 
+        path ="./dataset/cccb.xls"
+        #sheet name
         name="CCCB"
+        #write 2 xls file
         w2xl(path,name,cccb)
   
 #scrapy crawl cccb
