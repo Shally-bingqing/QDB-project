@@ -10,8 +10,7 @@ class ApiSpider(scrapy.Spider):
     start_urls = ['https://cccbdb.nist.gov/pollistx.asp',]
                       
     def parse(self, response): 
-        #store data into Excel file
-
+        # data will store into Excel file
         #get all the tables in target url
         tables = response.xpath("//table")
         #dataset
@@ -53,4 +52,7 @@ class ApiSpider(scrapy.Spider):
         #write 2 xls file
         w2xl(path,name,cccb)
   
-#scrapy crawl cccb
+#cmd run this bellow
+'''
+scrapy crawl cccb
+'''
