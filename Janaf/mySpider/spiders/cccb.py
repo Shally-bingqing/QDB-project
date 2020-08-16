@@ -1,52 +1,54 @@
 import scrapy
+from .tools import write_excel_xls as w2xl
 
 class ApiSpider(scrapy.Spider):
+    # spider name 
     name = 'cccb'
+    # the target domains which allowed
     allowed_domains = ['https://cccbdb.nist.gov/']
+    # the list of urls will be scrapied
     start_urls = ['https://cccbdb.nist.gov/pollistx.asp',]
-    
-    def parse(self, response):
-        #the name set 
-        name = []
-        #the value set 
-        alpha = []
-        # the Molecule index for every line
-        name_no = 1
-        #the alpha index for every line
-        alpha_no = 5
+                      
+    def parse(self, response): 
+        #store data into Excel file
+
         #get all the tables in target url
         tables = response.xpath("//table")
+        #dataset
+        cccb=[]
         #the target table is no.2
         for number, table in enumerate(tables):
+            #the no.2 table which store data
             if number ==1:
                 # get all the rows in target table
                 rows = table.xpath(".//tr")
                 # deal with every row in rows we get , which contains all data
                 for no,row in enumerate(rows):
-                    #the 1st row is ths
-                    if no==1:
-                        continue
-                    # get all element data in every row
-                    everys = row.xpath(".//td")
+                    #tempory to save one line value
+                    one=[]
+                    if no==0:
+                        #the 1st row is ths
+                        everys = row.xpath(".//th")
+                    else:
+                        # get all element data in every row 
+                        everys = row.xpath(".//td")
                     #deal with every element data in  one row
                     for i, every in enumerate(everys):
-                        if i==name_no-1:
-                            #get the name
-                            name.append(every.xpath("string(.)").extract()[0])
-                            continue
-                        if i==alpha_no-1:
-                            #get the alpha value
-                            alpha.append(every.xpath("string(.)").extract()[0])
-                            break
-                        pass#forevery
+                        #append every value in line
+                        one.append(every.xpath("string(.)").extract()[0])
+                        pass#for every
+                    ##test capture
+                    #print("------------",one,"--------------")
+                    if one!=[]:
+                        #null value check
+                        cccb.append(one)
+                        pass#if one
                     pass#for everys
+                #cccb.append(item)
                 pass#for rows
             pass#for tables
-        dic=dict(zip(name,alpha))
-        return dic
-        
-#scrapy crawl cccb -o ./dataset/cccb.csv
-
-#Todo
-#存在Molecule相同的元素，但是不同的alpha
-#如果使用了dic每次会保留最后一个，因为是集合
+        path ="./dataset/cccb.csv"
+        name="CCCB"
+        w2xl(path,name,cccb)
+  
+#scrapy crawl cccb
