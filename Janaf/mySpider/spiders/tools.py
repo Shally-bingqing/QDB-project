@@ -1,8 +1,11 @@
 # coding=UTF-8
 import xlrd
 import xlwt
-import xlutils
+from xlutils.copy import copy  # 修改（追加写入）：xlutils
+import os
 
+##ref 
+# https://blog.csdn.net/u013250071/article/details/81911434
 
 def write_excel_xls(path, sheet_name, value):
     index = len(value)  # 获取需要写入数据的行数
@@ -39,5 +42,17 @@ def read_excel_xls(path):
             print(worksheet.cell_value(i, j), "\t", end="")  # 逐行逐列读取数据
         print()
 
-##ref 
-# https://blog.csdn.net/u013250071/article/details/81911434
+def checkFile(filePath,fileName):
+    #获取文件路径下的所有文件名
+    allFileName = os.listdir(filePath)
+    fileState = False
+    #在指定路径下，判断是否存在指定文件
+    for file in allFileName:
+    #输出所有文件和文件夹
+    #print("existFile:==>",file)
+        if file == fileName:
+            #print("file:",file)
+            #print("fileName:",fileName)
+            fileState = True
+            break
+    return fileState
