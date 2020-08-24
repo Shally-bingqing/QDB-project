@@ -75,11 +75,11 @@ def separation(x,char):
     x=x.replace("\t","")
     while(len(x)>3):
         #通过找来分割
-        print("x:",x)
+        #print("x:",x)
         if x.index(char)!=-1:
             #E的后面3位代表一个数的结束
             y.append([x[:x.index(char)+4]])
-            print("y:",y)
+            #print("y:",y)
             #去除已经加入结果的值
             x=x[x.index(char)+4:]
             pass #if
@@ -110,13 +110,13 @@ def read(path,name):
             #输出每一行
             print(no,":",i)
             
-            #ToDo 这里实现每一行的处理逻辑
             #首先将所有的每行都并成一列
-            i=connect(i)
+            tmp=connect(i)
             #其次判断是不是标题
-            if isHead(i[0],"THERMODYNAMIC"):
+            #print("************",flag,":",record,"**********")
+            if isHead(tmp[0],"THERMODYNAMIC"):
                 #如果是将起始标记写入
-                if flag==0:
+                if flag==0 or len(record)<=flag:
                     record.append(no)
                     pass
                 else:
@@ -124,8 +124,8 @@ def read(path,name):
                     pass
                 continue
             #判断是否为子标题
-            if isHead(i[0],"CETPC"):
-                if flag==0:
+            if isHead(tmp[0],"CETPC"):
+                if flag==0 or len(record)<=flag:
                     record.append(no)
                     pass
                 else:
@@ -133,27 +133,63 @@ def read(path,name):
                     pass
                 continue
             #判断是否为页码
-            if isTail(i[0],3):
+            if isTail(tmp[0],3):
                 #记录页码
-                page.append(i[0])
-                #将当前页码坐标减去最近的标题坐标便为处理数量
-                record[flag]=no-record[flag]
+                page.append(tmp[0])
+                #可能某一页的开头到结尾没有标题直接是页码
+                if record[flag]!="" and record!=[]:
+                    #将当前页码坐标减去最近的标题坐标便为处理数量
+                    record[flag]=no-record[flag]
+                    pass#if record
+                else:
+                    #则记录某一页处理了当前
+                    record[flag]=no
+                    pass#else
                 #之后进行下一页的处理记录
                 flag=flag+1
                 continue
             mark=["(",")"]
             #判断是否为元素的标题
-            if isTitle(i[0],mark):
-                y.append(i)
+            if isTitle(tmp[0],mark):
+                #将标题元素按照间隔符分割
+                tmp=tmp[0].replace(" ",'\t').split("\t")
+                #里面存在空元素，需要进行替换
+                for i in tmp:
+                    #为空值或者为换行
+                    if i==" " or i=="":
+                        #移除该元素
+                        tmp.remove(i)
+                        pass#if
+                    pass#for
+                #小问题是第二个分割值可能会和第三个黏在一起
+                if len(tmp[1])>4:
+                    #判断每个字符是不是数字
+                    for i in tmp[1]:
+                        #如果是数字
+                        if i.isdigit():
+                            #如果是则返回该字符的索引
+                            separatrix=tmp[1].index(i)
+                            #按照界限来进行分割
+                            #获取前半部分
+                            second=tmp[1][:separatrix]
+                            #获取后半部分
+                            third=tmp[1][separatrix:]
+                            #重新填充入
+                            tmp[1]=second
+                            tmp.insert(2,third)
+                            break
+                        pass#for
+                    pass#for
+                #写入结果中
+                y.append(tmp)
                 continue
             else:
                 #排除所有其他可能，不是元素标题则为数据
-                y.append(separation(i[0],"E"))
+                y.append(separation(tmp[0],"E"))
             pass#for no
         pass#with
     #将结果写入文件
-    #!!!!!!!这里改为自己的目录
-    save_path = 'mySpider/mySpider/spiders/dataset/output_test.xls'
+    save_path = 'mySpider/mySpider/spiders/dataset/output_test10-12.xls'
     sheet_name="NASA_test"
     return w2xl(save_path,sheet_name,y)
 
@@ -177,9 +213,8 @@ if __name__ =="__main__":
     #print(x[0].index(char))
     #print(separation(x[0],char))
     ##combine test
-    #要处理的文件路径,
-    #!!!!!!!这里改为自己的目录
+    #要处理的文件路径
     path='mySpider/mySpider/spiders/source_data/'
     #文件名
-    name='NASA_poly73.csv'
+    name='NASA_poly_10-12.csv'
     read(path,name)
