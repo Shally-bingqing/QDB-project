@@ -7,7 +7,22 @@
 
 import scrapy
 
-class Element(scrapy.Item):
-    name=scrapy.Field()
-    values=scrapy.Field()
+class Cccb(scrapy.Item):
+    #accroding to the html table
+    Molecule = scrapy.Field()
+    Name = scrapy.Field()
+    State = scrapy.Field()
+    Conformation = scrapy.Field()
+    Alpha = scrapy.Field()
+    Squib =scrapy.Field()
+    Commment = scrapy.Field()
     pass
+
+class Nist(scrapy.Item):
+    Name = scrapy.Field()
+    Formula = scrapy.Field()
+    CAS = scrapy.Field()
+    IE=scrapy.Field()
+    Method=scrapy.Field()
+    Refer=scrapy.Field()
+    Comment=scrapy.Field()
