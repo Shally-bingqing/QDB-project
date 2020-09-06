@@ -5,15 +5,10 @@ from ..items import Nist
 
 class NistSpider(scrapy.Spider):
     name = 'nist'
-    #start_urls = ['https://webbook.nist.gov/cgi/formula/',]
-    start_urls = ['https://webbook.nist.gov/cgi/formula/Te',]
+    start_urls = ['https://webbook.nist.gov/cgi/formula/',]
     prefix="https://webbook.nist.gov"
     output=[]
     next_url=[]
-    #path="./dataset/nist.xls"
-    path4all="./dataset/nist_url.xls"
-    #start_urls = ['https://webbook.nist.gov/cgi/formula?ID=C54038016','https://webbook.nist.gov/cgi/inchi/InChI%3D1S/No','https://webbook.nist.gov/cgi/inchi/InChI%3D1S/Ba']
-    #start_urls = ['https://webbook.nist.gov/cgi/inchi?ID=C7440393&Mask=20#Ion-Energetics','https://webbook.nist.gov/cgi/inchi?ID=C10028145&Mask=20#Ion-Energetics']
 
     def parse(self, response):
         urls=[]
@@ -25,11 +20,7 @@ class NistSpider(scrapy.Spider):
                 self.next_url.append(url)
             else:
                 yield scrapy.Request(url,callback=self.idea_parse)
-                #self.output.append([element,url])
-                #urls.append([element,url])
-        #a2xl(self.path,urls)
         if self.next_url!=[]:
-            print("len:",len(self.next_url))
             for i in self.next_url:
                 url=i
                 self.next_url.remove(url)
@@ -44,7 +35,6 @@ class NistSpider(scrapy.Spider):
                 for each in eachs:
                     temp=each.xpath("./a/text()").extract_first()
                     if temp!=None and temp.find("ion energetics")!=-1:
-                        #output.append([prefix+each.xpath("./a/@href").extract_first()])
                         url=self.prefix+each.xpath("./a/@href").extract_first()
                         yield scrapy.Request(url,callback=self.data_parse)
     
@@ -88,8 +78,5 @@ class NistSpider(scrapy.Spider):
                                     y['Formula']=item.xpath("./text()").extract_first()
                                 if tmp!=None and tmp.find("CAS")!=-1:
                                     y['CAS']=item.xpath("./text()").extract_first()
-                        print("y",y)
-                        data.append([y])
-                        #a2xl(self.path4all,data)
                         yield y
         
